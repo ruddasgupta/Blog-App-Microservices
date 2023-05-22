@@ -15,6 +15,7 @@ import com.microservices.models.Post;
 import com.microservices.models.User;
 import com.microservices.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,10 @@ public class UserService {
 		List<User> users = userRepository.findAll();
 		if(!users.isEmpty()) {
 			logger.info("getAllUsers {}", this.getClass().getName());
+			users.stream().forEach(user -> user.setPassword("****"));
+//			for(User user: users) {
+//				user.setPassword("****");
+//			}
 			return users;
 		} else {
 			logger.error("getAllUsers {} User not Found!", this.getClass().getName());
@@ -66,6 +71,7 @@ public class UserService {
 			}
 		}
 		logger.info("createUser {}", this.getClass().getName());
+		user.setPassword("****");
 		return userRepository.save(user);	
 	}
 
