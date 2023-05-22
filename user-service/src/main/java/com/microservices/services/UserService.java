@@ -63,7 +63,7 @@ public class UserService {
 	}
 
 	public User createUser(User user) throws ResourceAlreadyExistsException {
-		if(user.getId() != null) {
+		if (user.getId() != null) {
 			Optional<User> u = userRepository.findById(user.getId());
 			if (u.isPresent()) {
 				logger.error("createUser {} User already exists!", this.getClass().getName());
@@ -71,8 +71,9 @@ public class UserService {
 			}
 		}
 		logger.info("createUser {}", this.getClass().getName());
-		user.setPassword("****");
-		return userRepository.save(user);	
+		User u = userRepository.save(user);
+		u.setPassword("****");
+		return u;
 	}
 
 	@Transactional
